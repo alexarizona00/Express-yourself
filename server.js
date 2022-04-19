@@ -1,4 +1,6 @@
 const express = require('express');
+const fs = require('fs')
+const path = require('path')
 
 const app = express()
 
@@ -8,9 +10,6 @@ const PORT = 3000
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(('public')))
-require('./routes/api.js')(app)
-require('./routes/html.js')(app)
-
 
 //makes the main page button work 
 app.get('/notes', (req,res) => {
@@ -29,6 +28,21 @@ app.get("*", (req,res) => {
 });
 
 //writing a post to save the data. 
+
+// utilized a uuid generator from a previous assignment. 
+app.post("/api/notes", (req, res) => {
+    let aNote = req.body;
+    let savedNotes = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+    let uuid =   Math.floor((1 + Math.random()) * 0x10000)
+    .toString(16)
+    .substring(1);
+
+    aNote.id = uuid
+
+    savedNotes.push(aNote)
+
+}
+)
 
 app.listen(PORT)
 console.log("now listening on port 3000")
