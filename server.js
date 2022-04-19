@@ -1,5 +1,8 @@
 const express = require('express');
 const app = express()
+require('./helpers/routes/api')
+require('./helpers/routes/html')
+
 
 const PORT = 3000
 
@@ -12,8 +15,9 @@ app.get('/notes', (req,res) => {
     res.sendFile(__dirname + '/public/notes.html')
 })
 
+
 app.get('*', (req, res) => 
-res.send('this a 404'))
+res.console.error(404));
 
 
 app.listen(PORT)
