@@ -29,10 +29,10 @@ app.get("*", (req,res) => {
 
 //writing a post to save the data. 
 
-// utilized a uuid generator from a previous assignment. 
-app.post("/api/notes", (req, res) => {
+// utilized a uuid generator from a previous assignment to generate ID for each note
+app.post("/api/notes", (req,res) => {
     let aNote = req.body;
-    let savedNotes = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+    let savedNotes = JSON.parse(fs.readFileSync("./db/db.json"));
     let uuid =   Math.floor((1 + Math.random()) * 0x10000)
     .toString(16)
     .substring(1);
@@ -40,9 +40,15 @@ app.post("/api/notes", (req, res) => {
     aNote.id = uuid
 
     savedNotes.push(aNote)
-
+    fs.writeFile(__dirname + '/db/db.json', JSON.stringify(savedNotes), (err) => {
+    if (err) throw err })    
+    res.send('you succeeded in saving the file')
 }
 )
+app.delete("/api/notes", (req,res) => {
+let savedNotes = JSON.parse(fs.readFileSync("./db/db.json"))
+console.log(savedNotes)
+})
 
 app.listen(PORT)
 console.log("now listening on port 3000")
