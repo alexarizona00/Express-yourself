@@ -2,6 +2,7 @@
   # Project
   
   ### Express Yourself
+  ![image](https://user-images.githubusercontent.com/82853759/164142301-ef0dc545-9a21-46da-b968-e9496d1706a9.png)
   [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) 
 
   ## Table of Contents
